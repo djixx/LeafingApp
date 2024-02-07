@@ -19,9 +19,6 @@
             android:name=".LoginOtp"
             android:exported="false" />
         <activity
-            android:name=".LoginoOtp"
-            android:exported="false" />
-        <activity
             android:name=".Login"
             android:exported="false" />
         <activity

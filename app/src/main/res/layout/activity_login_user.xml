@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_margin="15dp"
+    android:gravity="center"
+    android:orientation="vertical"
     android:weightSum="100"
     tools:context=".LoginUser">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="20">
+        android:layout_weight="20"
+        android:gravity="center">
+
         <RelativeLayout
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -26,10 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="1"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:text="1"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -41,10 +43,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="2"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:text="2"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -64,68 +67,66 @@
 
     <ImageView
         android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/user"
+        android:layout_height="201dp"
         android:layout_weight="20"
-        />
+        android:src="@drawable/user" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your username"
         android:layout_gravity="center_vertical"
+        android:layout_weight="5"
         android:letterSpacing="0.08"
-        android:textStyle="bold"
+        android:text="Enter your username"
         android:textSize="25sp"
-        android:layout_weight="5"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_weight="5"
         android:gravity="center"
-        android:layout_weight="5">
-
-
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="12dp"
-            android:hint="Username"
-            android:inputType="text"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_rounded_corner"
             android:elevation="5dp"
-            />
+            android:hint="Username"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_weight="20"
         android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:layout_weight="20">
+        android:orientation="vertical">
+
         <Button
+            android:id="@+id/login_let_me_in_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_rounded_corner"
-            android:text="Let me in"
-            android:id="@+id/login_let_me_in_btn"/>
+            android:text="Let me in" />
+
         <ProgressBar
+            android:id="@+id/login_progress_bar"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/my_primary"
             android:layout_gravity="center"
-            android:id="@+id/login_progress_bar"/>
+            android:indeterminateTint="@color/my_primary" />
     </LinearLayout>
 
 </LinearLayout>
