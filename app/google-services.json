@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70334042104",
+    "project_id": "leafingapp-backend",
+    "storage_bucket": "leafingapp-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70334042104:android:d2e9e5ded7b031b54a900d",
+        "android_client_info": {
+          "package_name": "com.example.leafingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgIj5z_ikA8lmma1SJzW9PH4aiiJFmQhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
