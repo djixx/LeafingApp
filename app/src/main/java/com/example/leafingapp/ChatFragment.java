@@ -3,24 +3,77 @@ package com.example.leafingapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.leafingapp.adapter.RecentChatRecyclerAdapter;
+import com.example.leafingapp.model.ChatRoomModel;
+import com.example.leafingapp.utils.FirebaseUtil;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.Query;
+
 
 public class ChatFragment extends Fragment {
 
 
+    RecyclerView recyclerView;
+    RecentChatRecyclerAdapter adapter;
+
+
     public ChatFragment() {
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        recyclerView = view.findViewById(R.id.recyler_view);
+        setupRecyclerView();
+
+        return view;
+    }
+
+    void setupRecyclerView() {
+
+        Query query = FirebaseUtil.allChatroomCollectionReference()
+                .whereArrayContains("userIds", FirebaseUtil.currentUserId())
+                .orderBy("lastMessageTimestamp", Query.Direction.DESCENDING);//Inside this method, you define a
+        // Firestore query to retrieve chatroom data from Firebase Firestore. Inside this method,
+        // you define a Firestore query to retrieve chatroom data from Firebase Firestore.
+
+        FirestoreRecyclerOptions<ChatRoomModel> options = new FirestoreRecyclerOptions.Builder<ChatRoomModel>()
+                .setQuery(query, ChatRoomModel.class).build();
+        // We specify things like the type of data we're expecting (in this case, chatroom data),
+        // and any additional options, like how to sort or filter the data.
+        adapter = new RecentChatRecyclerAdapter(options, getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null)
+            adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (adapter != null)
+            adapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
     }
 }
