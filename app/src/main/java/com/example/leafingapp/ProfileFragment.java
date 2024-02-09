@@ -26,6 +26,7 @@ import com.example.leafingapp.utils.Util;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -87,8 +88,8 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getContext(),SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-        });
-          /*  FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -99,7 +100,7 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             });
-        });*/
+        });
 
 
         profilePic.setOnClickListener((v)->{

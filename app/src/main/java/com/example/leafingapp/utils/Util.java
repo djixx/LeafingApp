@@ -33,8 +33,16 @@ public class Util {
         return userModel;
     }
 
-    public static void setProfilePic(Context context, Uri imageUri, ImageView imageView){
-        Glide.with(context).load(imageUri).apply(RequestOptions.circleCropTransform()).into(imageView);
+    public static void setProfilePic(Context context, Uri imageUri, ImageView imageView) {
+        if (context == null || imageView == null) {
+            return; // Return early if context or imageView is null
+        }
+
+        // Load the image using Glide
+        Glide.with(context)
+                .load(imageUri)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView);
     }
 
 
