@@ -1,6 +1,7 @@
 package com.example.leafingapp.adapter;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,18 @@ public class SearchUserRecycler extends FirestoreRecyclerAdapter<UserModel, Sear
         if(model.getUserId().equals(FirebaseUtil.currentUserId())){
             holder.usernameText.setText(model.getUsername()+" (Me)");
         }
+
+
+        FirebaseUtil.getOtherProfilePicStorageRef(model.getUserId()).getDownloadUrl()
+                .addOnCompleteListener(t -> {
+                    if(t.isSuccessful()){
+                        Uri uri  = t.getResult();
+                        Util.setProfilePic(context,uri,holder.profilePic);
+                    }
+                });
+
+
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, Chat.class);
             Util.passUserModelAsIntent(intent,model);
@@ -65,7 +78,7 @@ public class SearchUserRecycler extends FirestoreRecyclerAdapter<UserModel, Sear
             super(itemView);
             usernameText = itemView.findViewById(R.id.user_name_text);
             phoneText = itemView.findViewById(R.id.phone_text);
-            profilePic = itemView.findViewById(R.id.profile_picture);
+            profilePic = itemView.findViewById(R.id.profile_pictur_image_view);
         }
     }
 }

@@ -47,6 +47,7 @@ public class SearchUser extends AppCompatActivity {
 
     }
     private void goBack() {
+
         onBackPressed();
     }
 

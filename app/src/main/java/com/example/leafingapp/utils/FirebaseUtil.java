@@ -6,6 +6,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 import java.text.SimpleDateFormat;
@@ -66,8 +68,8 @@ public class FirebaseUtil {
     public static void logout(){
         FirebaseAuth.getInstance().signOut();
     }
-/*
-   public static StorageReference  getCurrentProfilePicStorageRef(){
+
+   public static StorageReference getCurrentProfilePicStorageRef(){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(FirebaseUtil.currentUserId());
     }
@@ -75,5 +77,5 @@ public class FirebaseUtil {
     public static StorageReference  getOtherProfilePicStorageRef(String otherUserId){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(otherUserId);
-    }*/
+    }
 }

@@ -56,8 +56,15 @@ public class Chat extends AppCompatActivity {
         backBtn = findViewById(R.id.back_btn);
         otherUsername = findViewById(R.id.other_username);
         recyclerView = findViewById(R.id.chat_recycler_view);
-        //imageView = findViewById(R.id.profile_pic_image_view);
+        imageView = findViewById(R.id.profile_pictur_image_view);
 
+        FirebaseUtil.getOtherProfilePicStorageRef(otherUser.getUserId()).getDownloadUrl()
+                .addOnCompleteListener(t -> {
+                    if(t.isSuccessful()){
+                        Uri uri  = t.getResult();
+                        Util.setProfilePic(this,uri,imageView);
+                    }
+                });
 
 
 

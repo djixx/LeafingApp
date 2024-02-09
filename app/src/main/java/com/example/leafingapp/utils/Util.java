@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.leafingapp.model.UserModel;
 
 public class Util {
@@ -31,9 +33,9 @@ public class Util {
         return userModel;
     }
 
-    /*public static void setProfilePic(Context context, Uri imageUri, ImageView imageView){
+    public static void setProfilePic(Context context, Uri imageUri, ImageView imageView){
         Glide.with(context).load(imageUri).apply(RequestOptions.circleCropTransform()).into(imageView);
-    }*/
+    }
 
 
 }
