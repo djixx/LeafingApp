@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -24,12 +23,7 @@ import com.example.leafingapp.model.UserModel;
 import com.example.leafingapp.utils.FirebaseUtil;
 import com.example.leafingapp.utils.Util;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 
 public class ProfileFragment extends Fragment {
@@ -55,7 +49,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(result.getResultCode() == Activity.RESULT_OK){
+                    if(result.getResultCode() == Activity.RESULT_OK){ //if you get the result that znaci da je slika izabrana
                         Intent data = result.getData();
                         if(data!=null && data.getData()!=null){
                             selectedImageUri = data.getData();
@@ -79,9 +73,8 @@ public class ProfileFragment extends Fragment {
 
         getUserData();
 
-        updateProfileBtn.setOnClickListener((v -> {
-            updateBtnClick();
-        }));
+        updateProfileBtn.setOnClickListener(v -> updateBtnClick());
+
 
         logoutBtn.setOnClickListener((v)-> {
             FirebaseUtil.logout();
@@ -89,7 +82,7 @@ public class ProfileFragment extends Fragment {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
-            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
+         /*   FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -99,20 +92,19 @@ public class ProfileFragment extends Fragment {
                         startActivity(intent);
                     }
                 }
-            });
+            });*/
         });
 
 
-        profilePic.setOnClickListener((v)->{
-            ImagePicker.with(this).cropSquare().compress(512).maxResultSize(512,512)
-                    .createIntent(new Function1<Intent, Unit>() {
-                        @Override
-                        public Unit invoke(Intent intent) {
-                            imagePickLauncher.launch(intent);
-                            return null;
-                        }
-                    });
-        });
+        profilePic.setOnClickListener(v -> ImagePicker.with(this)
+                .cropSquare()
+                .compress(512)
+                .maxResultSize(512, 512)
+                .createIntent(intent -> {
+                    imagePickLauncher.launch(intent);
+                    return null;
+                }));
+
 
         return view;
     }
@@ -128,9 +120,7 @@ public class ProfileFragment extends Fragment {
 
         if(selectedImageUri!=null){
             FirebaseUtil.getCurrentProfilePicStorageRef().putFile(selectedImageUri)
-                    .addOnCompleteListener(task -> {
-                        updateToFirestore();
-                    });
+                    .addOnCompleteListener(task -> updateToFirestore());
         }else{
             updateToFirestore();
         }
