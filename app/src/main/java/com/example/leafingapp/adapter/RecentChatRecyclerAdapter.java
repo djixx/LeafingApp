@@ -31,42 +31,50 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
         this.context = context;
     }
 
-    @Override
+    @Override // poziva za svaki recycleView da bi se postavili podaci iz modela podataka na odgovarajuće prikazane elemente.
     protected void onBindViewHolder(@NonNull ChatroomModelViewHolder holder, int position, @NonNull ChatRoomModel model) {
         FirebaseUtil.getOtherUserFromChatroom(model.getUserIds())
                 .get().addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                    if(task.isSuccessful()) {
                         boolean lastMessageSentByMe = model.getLastMessageSenderId().equals(FirebaseUtil.currentUserId());
 
                         UserModel otherUserModel = task.getResult().toObject(UserModel.class);
 
                         FirebaseUtil.getOtherProfilePicStorageRef(otherUserModel.getUserId()).getDownloadUrl()
                                 .addOnCompleteListener(t -> {
-                                    if(t.isSuccessful()){
-                                        Uri uri  = t.getResult();
-                                        Util.setProfilePic(context,uri,holder.profilePic);
+                                    if (t.isSuccessful()) {
+                                        Uri uri = t.getResult();
+                                        Util.setProfilePic(context, uri, holder.profilePic);
                                     }
                                 });
 
                         holder.usernameText.setText(otherUserModel.getUsername());
-                        if(lastMessageSentByMe)
-                            holder.lastMessageText.setText("You : "+model.getLastMessage());
+                        if (lastMessageSentByMe)
+                            holder.lastMessageText.setText("You : " + model.getLastMessage());
                         else
                             holder.lastMessageText.setText(model.getLastMessage());
                         holder.lastMessageTime.setText(FirebaseUtil.timestampToString(model.getLastMessageTimestamp()));
 
                         holder.itemView.setOnClickListener(v -> {
                             Intent intent = new Intent(context, Chat.class);
-                            Util.passUserModelAsIntent(intent,otherUserModel);
+                            Util.passUserModelAsIntent(intent, otherUserModel);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
                         });
 
                     }
                 });
+        holder.delete_chat.setOnClickListener(v -> {
+            String chatId = model.getChatroomId();
+            deleteChat(chatId);
+        });
     }
 
-
+    private void deleteChat(String chatId) {
+        // Ovdje implementirajte kod za brisanje čata s ID-om chatId iz baze podataka
+        // Na primjer, pozovite odgovarajuće metode za brisanje čata iz Firebase Firestore-a
+        FirebaseUtil.deleteChatroom(chatId);
+    }
 
 
     @NonNull

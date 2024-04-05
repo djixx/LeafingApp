@@ -1,5 +1,13 @@
 package com.example.leafingapp.utils;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -52,6 +60,7 @@ public class FirebaseUtil {
         return FirebaseFirestore.getInstance().collection("chatrooms");
     }
 
+
     public static DocumentReference getOtherUserFromChatroom(List<String> userIds){
         if(userIds.get(0).equals(FirebaseUtil.currentUserId())){
             return allUserCollectionReference().document(userIds.get(1));
@@ -78,4 +87,24 @@ public class FirebaseUtil {
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(otherUserId);
     }
+
+
+    public static void deleteChatroom(String chatroomId) {
+        FirebaseFirestore.getInstance().collection("chatrooms").document(chatroomId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Chatroom successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting chatroom", e);
+                    }
+                });
+    }
+
+
 }
