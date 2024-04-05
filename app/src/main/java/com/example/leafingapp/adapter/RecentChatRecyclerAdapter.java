@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -80,6 +81,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
         TextView lastMessageText;
         TextView lastMessageTime;
         ImageView profilePic;
+        ImageButton delete_chat;
 
         public ChatroomModelViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +89,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
             lastMessageText = itemView.findViewById(R.id.last_message_text);
             lastMessageTime = itemView.findViewById(R.id.last_message_time_text);
             profilePic = itemView.findViewById(R.id.profile_pictur_image_view);
+            delete_chat = itemView.findViewById(R.id.delete_chat);
         }
     }
 

@@ -5,43 +5,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/edit_text_rounded_corner"
     android:layout_margin="10dp"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    android:gravity="center_vertical">
 
     <include layout="@layout/profile_picture"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        />
+        android:layout_margin="10dp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_weight="1">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
+                android:id="@+id/user_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="User name"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="2dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:id="@+id/user_name_text"/>
+                tools:text="User name" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="10:00"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/last_message_time_text"/>
+
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/last_message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="+000000000000"
-            android:id="@+id/last_message_text"/>
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            tools:text="+000000000000" />
+
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/delete_chat"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
+        android:src="@drawable/baseline_delete_outline" />
+
 </LinearLayout>
